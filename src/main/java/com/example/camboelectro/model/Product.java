@@ -36,6 +36,18 @@ public class Product {
     @Column(nullable = false)
     private ArrayList<String> imageUrls;
 
+    @Column(nullable = false)
+    private long storeId;
+
+    @Column(nullable = true)
+    private String color;
+
+    @Column(nullable = false)
+    private long categoryId;
+
+    @Column(nullable = true)
+    private long ranking;
+
     public long getId() {
         return id;
     }
@@ -98,5 +110,37 @@ public class Product {
 
     public void setImageUrls(ArrayList<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(long storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public long isRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int i) {
+        this.ranking = i;
     }
 }

@@ -27,7 +27,7 @@
                 for(var i = 0; i < data.length; i++) {
                     items += `<div class="col-xxl-2 col-lg-4 col-md-4 col-sm-4 col-xs-6 text-center rounded m-3 item" style="height: 350px; max-width: 250px;">
                                 <div class="row item-image">
-                                    <a href="product-details?name=${encodeURIComponent(data[i].name)}&price=${encodeURIComponent(data[i].price)}&oldPrice=${encodeURIComponent(data[i].oldPrice)}&description=${encodeURIComponent(data[i].description)}&ratings=${encodeURIComponent(data[i].ratings)}&noRatings=${encodeURIComponent(data[i].noRatings)}&imageUrls=${encodeURIComponent(data[i].imageUrls)}"><img src="${data[i].imageUrls[0]}" alt=""></a>
+                                    <a href="product-details?productId=${data[i].id}"><img src="${data[i].imageUrls[0]}" alt=""></a>
                                 </div>
                                 <div class="row item-details p-3 d-flex justify-content-center align-items-start">
                                     <div class="row">

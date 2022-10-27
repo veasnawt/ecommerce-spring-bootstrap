@@ -38,6 +38,10 @@ public class ProductDataLoader implements CommandLineRunner {
 				product.setNoRatings(new Random().nextInt(100 + 1));
                 product.setDescription(faker.lorem().paragraph());
                 product.setImageUrls(imageUrls);
+				product.setColor(faker.color().name());
+				product.setStoreId(new Random().nextInt(1102 - 1) + 1002);
+				product.setCategoryId(new Random().nextInt(100 - 1) + 1);
+				product.setRanking(new Random().nextInt(3 - 1) + 1);
                 productRepository.save(product);
             }
 		}

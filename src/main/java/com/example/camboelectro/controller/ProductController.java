@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.camboelectro.exception.ProductIdMismatchException;
-import com.example.camboelectro.exception.ProductNotFoundException;
 import com.example.camboelectro.model.Product;
 import com.example.camboelectro.repository.ProductRepository;
 
@@ -47,7 +46,6 @@ public class ProductController {
     public Product create(@RequestBody Product product) {
         return productRepository.save(product);
     }
-
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
