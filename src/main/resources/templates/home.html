@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambo Electro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+            var storedData = [];
+
+            const stars = (ratings) => {
+                var starImages = ``
+                for(var stars = 0; stars < ratings; stars++) {
+                    starImages += `<img src="https://pngimg.com/uploads/star/star_PNG41474.png" width="15" alt="">`;
+                }
+
+                return starImages;
+            }
+
+            const generateItems = (data) => {
+                console.log(`DATA LENGTH ${data.length}`)
+                var items = ``
+                for(var i = 0; i < data.length; i++) {
+                    items += `<div class="col-xxl-2 col-lg-4 col-md-4 col-sm-4 col-xs-6 text-center rounded m-3 item" style="height: 350px; max-width: 250px;">
+                                <div class="row item-image">
+                                    <a href="product-details?name=${encodeURIComponent(data[i].name)}&price=${encodeURIComponent(data[i].price)}&oldPrice=${encodeURIComponent(data[i].oldPrice)}&description=${encodeURIComponent(data[i].description)}&ratings=${encodeURIComponent(data[i].ratings)}&noRatings=${encodeURIComponent(data[i].noRatings)}&imageUrls=${encodeURIComponent(data[i].imageUrls)}"><img src="${data[i].imageUrls[0]}" alt=""></a>
+                                </div>
+                                <div class="row item-details p-3 d-flex justify-content-center align-items-start">
+                                    <div class="row">
+                                        <span class="item-name">
+                                            ${data[i].name}
+                                        </span>
+                                        <div class="d-flex justify-content-center">
+                                            ${stars(data[i].ratings)}
+                                        </div>
+                                        <span class="item-price">$${data[i].price}</span>
+                                    </div>
+                                    <div class="row">
+                                        <a href="#" class="btn btn-primary add-to-cart glow-on-hover bubbly-button">Add to Cart</a>
+                                    </div>
+                                </div>
+                            </div>`
+                }
+                items += `<div class="col-lg-3 col-md-4 col-sm-6 text-center rounded m-3 filling-empty-space-childs"></div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 text-center rounded m-3 filling-empty-space-childs"></div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 text-center rounded m-3 filling-empty-space-childs"></div>`
+                return items;
+            }
+            
+            $.get('http://localhost:8081/api/products', function(data) {
+                storedData = data;
+                $("#items").html(generateItems(data));
+            });
+            $(document).ready(function() {
+                $("#search-text").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#items .item").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                var no_of_products_in_cart = 0;
+                $(".add-to-cart").click(function() {
+                    no_of_products_in_cart < 9 ? no_of_products_in_cart += 1 : no_of_products_in_cart = "9+";
+                    $("#cart-noti").html(no_of_products_in_cart);
+                })
+            })
+
+            var animateButton = function(e) {
+
+                e.preventDefault;
+                //reset animation
+                e.target.classList.remove('animate');
+
+                e.target.classList.add('animate');
+                setTimeout(function(){
+                e.target.classList.remove('animate');
+                },700);
+            };
+
+            var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+            for (var i = 0; i < bubblyButtons.length; i++) {
+                bubblyButtons[i].addEventListener('click', animateButton, false);
+            }
+
+    </script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk&display=swap');
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        font-family: 'Familjen Grotesk', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .container-fluid {
+        min-height: 100% !important;
+        margin-bottom: -100px !important;
+    }
+
+    .navbar-brand {
+        margin-left: 15px;
+        font-family: 'Anton', sans-serif;
+    }
+
+    #cart-btn {
+        border-width: thin;
+        background-color: transparent;
+        border-color: black;
+    }
+
+    .cart-noti {
+        background-color: #41e849;
+    }
+
+    .add-to-cart {
+        height: 40px;
+    }
+
+    #navbar-nav-right {
+        display: flex;
+    }
+
+    #search-form {
+        display: flex;
+        gap: 5px;
+    }
+
+    #btn-search {
+        display: none;
+    }
+
+    #slide-area {
+        width: 100%;
+        height: 300px;
+        background-color: black;
+        position: relative;
+    }
+
+    #slide-area > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 70%;
+    }
+
+    #subtitle {
+        color: #e85d41 !important;
+    }
+
+    .title-n-subtitle {
+        position: absolute;
+    }
+
+    #item-list {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #item-list {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .item {
+        min-width: 220px;
+        box-shadow: -4px 7px 20px 4px rgba(0, 0, 0, 0.11);
+    }
+
+    .bubbly-button:after > .item {
+        z-index: -10001;
+    }
+
+    .filling-empty-space-childs {
+        max-width:250px; /*the width of the images in this example*/
+        height:0; /*Important! for the divs to collapse should they fall in a new row*/
+    }
+
+    .item-image {
+        height: 45%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        overflow: hidden;
+    }
+
+    .item-image > a {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item-image > a > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item-details {
+        height: 55%;
+    }
+
+    .item-name {
+        font-size: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+
+    .item-price {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #footer, .push {
+        width: 100%;
+        height: 100px;
+    }
+
+    #footer {
+        background-color: black;
+    }
+
+    .push {
+        color: #000;
+    }
+
+    .glow-on-hover {
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #111;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+    }
+
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left:-2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .glow-on-hover:active {
+        color: #000
+    }
+
+    .glow-on-hover:active:after {
+        background: transparent;
+    }
+
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #111;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+
+    .btn-animated {
+        animation: moveInBottom 5s ease-out;
+        animation-fill-mode: backwards;
+    }
+
+    @keyframes moveInBottom {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    }
+
+    .bubbly-button {
+        display: inline-block;
+        -webkit-appearance: none;
+        appearance: none;
+        transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    }
+
+    .bubbly-button:focus {
+        outline: 0;
+    }
+
+    .bubbly-button:before, :after{
+        position: absolute;
+        content: '';
+        display: block;
+        width: 140%;
+        left: -20%;
+        z-index: -1000;
+        transition: all ease-in-out 0.5s;
+        background-repeat: no-repeat;
+    }
+
+    .bubbly-button:before{
+        display: none;
+        top: -75%;
+        background-image:  
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle,  transparent 20%, #ff0081 20%, transparent 30%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%), 
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle,  transparent 10%, #ff0081 15%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%);
+        background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+    }
+
+    .bubbly-button:after{
+        display: none;
+        bottom: -75%;
+        background-image:  
+        radial-gradient(circle, #ff0081 20%, transparent 20%), 
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle,  transparent 10%, #ff0081 15%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%),
+        radial-gradient(circle, #ff0081 20%, transparent 20%);
+        background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+    }
+
+    .bubbly-button:active{
+        transform: scale(0.9);
+        background-color: darken(#ff0081, 5%);
+        box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+    }
+
+    .bubbly-button.animate:before{
+        display: block;
+        animation: topBubbles ease-in-out 0.75s forwards;
+    }
+    .bubbly-button.animate:after{
+        display: block;
+        animation: bottomBubbles ease-in-out 0.75s forwards;
+    }
+
+    @keyframes topBubbles {
+        0%{
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+        }
+            50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+        @keyframes bottomBubbles {
+        0%{
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+        }
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+    }
+
+</style>
+<body>
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-header px-2 px-sm-2 px-md-3">
+            <a class="navbar-brand text-uppercase font-weight-bold mx-0 p-0 mx-md-3" href="#">Cambo Electro</a>
+            <button class="navbar-toggler mx-md-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-xl-flex justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-start justify-content-sm-start" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Shop
+                        </a>
+                        <div class="dropdown-menu mb-3" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">All Products</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Popular Items</a>
+                            <a class="dropdown-item" href="#">New Products</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-0 p-0" id="navbar-nav-right">
+                    <a href="#" class="btn btn-primary col-xxl-4 col-lg-4 col-md-2 col-sm-2 text-dark cart" id="cart-btn">
+                        <img src="https://www.pngitem.com/pimgs/m/521-5216062_shopping-cart-transparent-background-shopping-cart-icon-png.png" width="20" alt=""> Cart
+                        <span class="rounded-circle cart-noti text-light px-2 d-inline-flex justify-content-center align-items-center" id="cart-noti"></span>
+                    </a>
+                    <form class="form-inline my-2 my-lg-0 d-flex mx-0 mx-lg-3" id="search-form">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-text">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btn-search">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </nav>
+        <div id="slide-area" class="d-flex justify-content-center align-items-center flex-direction-row d-none d-sm-flex">
+            <img src="https://png.pngtree.com/thumb_back/fw800/back_our/20190625/ourmid/pngtree-e-commerce-discount-banner-background-image_259173.jpg" alt="">
+            <div class="grid title-n-subtitle text-center">
+                <div class="row">
+                    <h1 class="text-light" id="title">Shop in Style</h1>
+                </div>
+                <div class="row">
+                    <h4 class="text-light" id="subtitle">with Cambo Electro</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="item-list">
+            <div class="row d-flex justify-content-around" id="items"></div>
+        </div>
+        <div class="push text-center">No Products Found</div>
+    </div>
+    <footer id="footer" class="d-flex justify-content-center align-items-center flex-direction-row">
+        <div class="footer-text text-light">
+            Copyright &copy; Cambo Electro 2022
+        </div>
+    </footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
