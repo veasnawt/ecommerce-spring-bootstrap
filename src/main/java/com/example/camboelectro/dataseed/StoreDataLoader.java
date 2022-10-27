@@ -24,7 +24,6 @@ public class StoreDataLoader implements CommandLineRunner {
 		if (storeRepository.count() == 0) {
 			for(var i = 0; i < 101; i++) {
                 Store store = new Store();
-				store.setId(i);
                 store.setName(faker.company().name());
 
                 storeRepository.save(store);

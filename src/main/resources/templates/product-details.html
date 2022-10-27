@@ -34,7 +34,7 @@
                 storeId = data.storeId;
                 categoryId = data.categoryId;
 
-                $(".shipping-fee").html(data.price < 20 ? data.price < 10 ? "$1" : "$2" : "Free")
+                $(".shipping-fee").html(data.price < 100 ? data.price < 20 ? data.price < 10 ? "$1" : "$2" : "Free" : "$3")
             });
 
             $.get(`http://localhost:8081/api/stores/${storeId}`, function(data) {
