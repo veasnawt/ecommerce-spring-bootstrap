@@ -4,9 +4,136 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Cambo Electro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".nav-tem").click(function() {
+                switch ($(".nav-tem").children("a").val) {
+                    case "Home":
+                        $(".link-home").css("color", "blue");
+                        $(".link-about").css("color", "#333");
+                        $(".link-shop").css("color", "#333");
+                        break;
+                    case "About":
+                        $(".link-home").css("color", "#333");
+                        $(".link-about").css("color", "blue");
+                        $(".link-shop").css("color", "#333");
+                        break;
+                    case "Shop":
+                        $(".link-home").css("color", "#333");
+                        $(".link-about").css("color", "#333");
+                        $(".link-shop").css("color", "blue");
+                        break;
+                    default:
+                        break;
+                }
+            })
+        });
+    </script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk&display=swap');
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        font-family: 'Familjen Grotesk', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .container-fluid {
+        min-height: 100% !important;
+        margin-bottom: -100px !important;
+    }
+
+    .navbar-brand {
+        margin-left: 15px;
+        font-family: 'Anton', sans-serif;
+    }
+
+    #footer, .push {
+        width: 100%;
+        height: 100px;
+    }
+
+    #footer {
+        background-color: black;
+    }
+
+    .push {
+        color: #000;
+    }
+
+    .main {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .about-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(.5);
+    }
+
+    .about-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+</style>
 <body>
-    
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-header px-2 px-sm-2 px-md-3">
+            <a class="navbar-brand text-uppercase font-weight-bold mx-0 p-0 mx-md-3" href="/">Cambo Electro</a>
+            <button class="navbar-toggler mx-md-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-xl-flex justify-content-xxl-between justify-content-xl-between justify-content-lg-between justify-content-md-start justify-content-sm-start" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link link-home" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-about" href="about">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link link-shop dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Shop
+                        </a>
+                        <div class="dropdown-menu mb-3" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">All Products</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Popular Items</a>
+                            <a class="dropdown-item" href="#">New Products</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="main">
+            <img class="about-image" src="https://media.istockphoto.com/photos/online-shopping-and-payment-man-using-tablet-with-shopping-cart-icon-picture-id1206800961?k=20&m=1206800961&s=612x612&w=0&h=hcPoUKhWtzHXR3PIAHVgPVZDZaO7R8yZ1wNPkUSsgwU=" alt="">
+            <p class="about-text text-light">
+                What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+        </div>
+        <div class="push"></div>
+    </div>
+    <footer id="footer" class="d-flex justify-content-center align-items-center flex-direction-row">
+        <div class="footer-text text-light">
+            Copyright &copy; Cambo Electro 2022
+        </div>
+    </footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
 </html>

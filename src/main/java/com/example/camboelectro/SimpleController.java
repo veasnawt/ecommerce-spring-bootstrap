@@ -21,4 +21,16 @@ public class SimpleController {
         model.addAttribute(appName, appName);
         return "product-details";
     }
+
+    @GetMapping("/about")
+    public String aboutPage(Model model) {
+        model.addAttribute(appName, appName);
+        return "about";
+    }
+
+    @GetMapping("/cart")
+    public String cartPage(Model model) {
+        model.addAttribute(appName, appName);
+        return "cart";
+    }
 }
